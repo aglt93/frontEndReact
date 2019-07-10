@@ -12,9 +12,10 @@ class Menu extends Component {
         };
     }
 
-    componentDidMount() {
-        console.log("Menu Component did mount");
-    }
+    // componentDidMount() {
+    //     console.log("Menu Component did mount");
+    // }
+    
     onDishSelect(dish) {
 
         this.setState({
@@ -41,9 +42,7 @@ class Menu extends Component {
                 <div className="row">
                     {menu}
                 </div>
-                <div className="row">
-                    <DishDetail dish={this.state.selectedDish}></DishDetail>
-                </div>
+                <DishDetail dish={this.state.selectedDish}></DishDetail>
             </div>
 
         );
