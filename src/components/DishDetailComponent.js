@@ -4,6 +4,7 @@ import { Modal, ModalHeader, ModalBody, Button, Row, Label, Col } from 'reactstr
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import uniqueid from 'uniqid';
 import { Link } from 'react-router-dom';
+import { Loading } from './LoadingComponent';
 
 
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -63,7 +64,27 @@ const DishDetail = (props) => {
 
     let renderValue = <div/>
 
-    if(props.dish != null) {
+    if(props.isLoading) {
+        return(
+            <div className="container">
+                <div className="row">
+                    <Loading/>
+                </div>
+            </div>
+        );
+    }
+
+    else if(props.errMess) {
+        return(
+            <div className="container">
+                <div className="row">
+                    <h4>{props.errMess}</h4>
+                </div>
+            </div>
+        );
+    }
+    
+    else if(props.dish != null) {
 
         renderValue = (
             <div className="container">
