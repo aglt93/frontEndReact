@@ -33,6 +33,8 @@ class Main extends Component {
 
 	componentDidMount() {
 		this.props.fetchDishes();
+		this.props.fetchComments();
+		this.props.fetchPromos();
 	}
 
 	render() {
