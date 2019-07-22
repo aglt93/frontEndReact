@@ -6,6 +6,7 @@ import uniqueid from 'uniqid';
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -15,13 +16,19 @@ function RenderDish({dish}) {
 
     const dishDetail = (
         <div key={uniqueid()} className="col-12 col-md-5 m-1">
-            <Card>
-                <CardImg width="100%" src={baseUrl + dish.image} alt={dish.name}/>
-                <CardBody>
-                    <CardTitle>{dish.name}</CardTitle>
-                    <CardText>{dish.description}</CardText>
-                </CardBody>
-            </Card>
+            <FadeTransform in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}
+            >
+                <Card>
+                    <CardImg width="100%" src={baseUrl + dish.image} alt={dish.name} />
+                    <CardBody>
+                        <CardTitle>{dish.name}</CardTitle>
+                        <CardText>{dish.description}</CardText>
+                    </CardBody>
+                </Card>
+            </FadeTransform>
         </div>
     );
 
@@ -34,19 +41,21 @@ function RenderComments({comments, postComment, dishId}) {
         <div key={uniqueid()} className="col-12 col-md-5 m-1">
             <h2>Comments</h2>
             <ul className="list-unstyled">
+                <Stagger in>
                 {comments.map((c) => {
                     return(
-                        <React.Fragment key={uniqueid()}>
+                        <Fade in  key={uniqueid()}>
                             <li className="p-2">{c.comment}</li>
                             <li className="p-2">
                                 --{c.author} {" , "} 
                                 {new Intl.DateTimeFormat('en-US', 
                                         { year: 'numeric', month: 'short', day: '2-digit' }
                                     ).format(new Date(c.date))}
-                            </li>
-                        </React.Fragment>
+                            </li> 
+                        </Fade>
                     )
                 })}
+                </Stagger>
                 <li className="p-2">
                     <CommentForm 
                         postComment={postComment}
